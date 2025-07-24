@@ -1,0 +1,12 @@
+- name: Deploy App in Docker on Remote Host
+  hosts: remote
+  become: true
+  tasks:
+    - name: Remove existing container
+      shell: docker rm -f myapp || true
+
+    - name: Load image
+      shell: docker load < /tmp/app.tar
+
+    - name: Run container
+      shell: docker run -d --name myapp -p 80:80 rehan-devops-app
